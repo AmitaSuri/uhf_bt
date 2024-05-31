@@ -134,6 +134,7 @@ public class ChainwayActivity extends BaseActivity implements View.OnClickListen
         checkLocationEnable();
         uhf.init(getApplicationContext());
         Utils.initSound(getApplicationContext());
+        checkBluetoothEnable();
     }
 
     @Override
@@ -514,7 +515,62 @@ public class ChainwayActivity extends BaseActivity implements View.OnClickListen
     private static final int ACCESS_FINE_LOCATION_PERMISSION_REQUEST = 100;
     private static final int WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST = 101;
     private static final int READ_EXTERNAL_STORAGE_PERMISSION_REQUEST=102;
+
+    //NEW ADDED
+    private static final int MANAGE_EXTERNAL_STORAGE_PERMISSION_REQUEST=103;
     private static final int REQUEST_ACTION_LOCATION_SETTINGS = 3;
+
+    private  static final int REQUEST_BLUETOOTH_CONNECT_PERMISSION= 104;
+    private  static final int REQUEST_BLUETOOTH_SCAN_PERMISSION = 105;
+
+    //newly added
+    private  static final int REQUEST_BLUETOOTH_ADMIN_PERMISSION= 107;
+
+    private  static final int REQUEST_BLUETOOTH_ADVERTISE_PERMISSION= 107;
+
+    private  static final int REQUEST_FOREGROUND_SERVICE_PERMISSION = 108;
+
+    private  static final int REQUEST_ACCESS_WIFI_PERMISSION = 109;
+    private  static final int REQUEST_CHANGE_WIFI_PERMISSION = 110;
+
+    //newly added
+//    private  static final int REQUEST_NEARBY_WIFI_DEVICES_PERMISSION = 106;
+
+    private boolean checkBluetoothEnable(){
+        boolean result = true;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (checkSelfPermission(Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.BLUETOOTH_SCAN}, REQUEST_BLUETOOTH_SCAN_PERMISSION);
+                result=false;
+            }
+            if (checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.BLUETOOTH_CONNECT}, REQUEST_BLUETOOTH_CONNECT_PERMISSION);
+                result=false;
+            }
+            if (checkSelfPermission(Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.BLUETOOTH_ADMIN}, REQUEST_BLUETOOTH_ADMIN_PERMISSION);
+                result=false;
+            }
+//            if (checkSelfPermission(Manifest.permission.BLUETOOTH_ADVERTISE) != PackageManager.PERMISSION_GRANTED) {
+//                requestPermissions(new String[]{Manifest.permission.BLUETOOTH_ADVERTISE}, REQUEST_BLUETOOTH_ADVERTISE_PERMISSION);
+//                result=false;
+//            }
+            if (checkSelfPermission(Manifest.permission.FOREGROUND_SERVICE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.FOREGROUND_SERVICE}, REQUEST_FOREGROUND_SERVICE_PERMISSION);
+                result=false;
+            }
+            if (checkSelfPermission(Manifest.permission.ACCESS_WIFI_STATE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_WIFI_STATE}, REQUEST_ACCESS_WIFI_PERMISSION);
+                result=false;
+            }
+
+            if (checkSelfPermission(Manifest.permission.CHANGE_WIFI_STATE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.CHANGE_WIFI_STATE}, REQUEST_CHANGE_WIFI_PERMISSION);
+                result=false;
+            }
+        }
+        return result;
+    }
 
     private boolean checkLocationEnable() {
         boolean result=true;
@@ -551,6 +607,9 @@ public class ChainwayActivity extends BaseActivity implements View.OnClickListen
             }
             if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE_PERMISSION_REQUEST);
+            }
+            if (checkSelfPermission(Manifest.permission.MANAGE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE},  MANAGE_EXTERNAL_STORAGE_PERMISSION_REQUEST);
             }
         }
     }

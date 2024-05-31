@@ -31,11 +31,7 @@ public class MainActivity extends FlutterActivity {
 
     public void navigate() {
         Intent intent = new Intent(getApplicationContext(),ChainwayActivity.class);
-        //intent.putExtra("userName", "Amita"); or bundle
-        //Same while coming back from ChainwayActivity
         startActivity(intent);
-        //finish(); finish the acxtivity before coming back to the previous activity
-
     }
 
 }
